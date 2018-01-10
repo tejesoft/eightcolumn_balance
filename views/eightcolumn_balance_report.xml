@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <report 
+            id="action_report_eightcolumns"
+            model="report.eightcolumn_balance.report_eightcolumns"
+            string="Balance 8 columnas"
+            report_type="qweb-pdf"
+            name="eightcolumn_balance.report_eightcolumns"
+            file="eightcolumn_balance.report_eightcolumns"
+            />
+    </data>
+</odoo>
