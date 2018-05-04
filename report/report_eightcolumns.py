@@ -94,12 +94,12 @@ class ReportEightColumns(models.AbstractModel):
                 res['balance'] = account_result[account.id].get('balance')
 
 
-            try:
+            #try:
 
                 account_type = str(account_types.get(account.id).get('type'))
 
-            except AttributeError:
-                raise except_orm('Debe configurar los tipos de cuentas y configurar los informes financieros')
+            #except AttributeError:
+             #   raise except_orm('Debe configurar los tipos de cuentas y configurar los informes financieros')
 
 
 
