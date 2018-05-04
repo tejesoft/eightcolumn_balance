@@ -36,6 +36,6 @@
     <menuitem id="menu_eightcolumn_balance_report"
               name="Balance de 8 columnas"
               action="action_eightcolumn_wizard"
-              parent="account.menu_finance_legal_statement"
+              parent="account.menu_finance_reports"
               sequence="100"/>
 </odoo>
