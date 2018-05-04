@@ -5,7 +5,7 @@
     'summary': 'Genera un reporte en formato PDF con el Balance 8 Columnas',
     'sequence': 16,
     'category': 'Accounting',
-    'author': u'''Roberto Tellez''',
+    'author': u'''Tejesoft Spa''',
     'description': """
 Balance 8 Columnas
 ======================================
@@ -13,7 +13,7 @@ Reporte legal que muestra un Balance de 8 Columnas
 
     """,
     'category': 'Accounting',
-    'website': 'http://www.linkedin.com/in/rtellezi',
+    'website': 'http://tejesoft.com',
     'images' : [],
     'depends' : ['base_setup', 'report', 'sale'],
     'data': [
