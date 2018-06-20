@@ -4,7 +4,7 @@ import time
 from odoo import api, models
 import sys, warnings
 from dateutil.parser import parse
-from odoo.exceptions import UserError
+from odoo.exceptions import UserError, Warning
 
 from odoo.exceptions import except_orm
 
@@ -94,12 +94,12 @@ class ReportEightColumns(models.AbstractModel):
                 res['balance'] = account_result[account.id].get('balance')
 
 
-            #try:
+                try:
 
-                account_type = str(account_types.get(account.id).get('type'))
+                    account_type = str(account_types.get(account.id).get('type'))
 
-            #except AttributeError:
-             #   raise except_orm('Debe configurar los tipos de cuentas y configurar los informes financieros')
+                except AttributeError:
+                    raise Warning('Debe configurar los tipos de cuentas y configurar los informes financieros')
 
 
 

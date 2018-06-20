@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 {
     'name' : 'Balance 8 Columnas',
-    'version' : '1.0',
+    'version' : '10.0.0.1',
     'summary': 'Genera un reporte en formato PDF con el Balance 8 Columnas',
     'sequence': 16,
     'category': 'Accounting',
