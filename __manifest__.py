@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 {
     'name' : 'Balance 8 Columnas',
-    'version' : '1.0',
+    'version' : '11.0.0.1',
     'summary': 'Genera un reporte en formato PDF con el Balance 8 Columnas',
     'sequence': 16,
     'category': 'Accounting',
@@ -15,7 +15,7 @@ Reporte legal que muestra un Balance de 8 Columnas
     'category': 'Accounting',
     'website': 'http://tejesoft.com',
     'images' : [],
-    'depends' : ['base_setup', 'report', 'sale'],
+    'depends' : ['base_setup', 'web', 'sale'],
     'data': [
         'wizard/eightcolumn_wizard_view.xml',
         'views/eightcolumn_balance_report.xml',

@@ -29,7 +29,8 @@ class EightColumnWizard(models.TransientModel):
     def _print_report(self, data):
         data = self.pre_print_report(data)
         records = self.env[data['model']].browse(data.get('ids', []))
-        return self.env['report'].get_action(records, 'eightcolumn_balance.report_eightcolumns', data=data)
+        return self.env.ref('eightcolumn_balance.action_report_eightcolumns').report_action([], data=data)
+        #return self.env['report'].get_action(records, 'eightcolumn_balance.report_eightcolumns', data=data)
 
     @api.multi
     def check_report(self):

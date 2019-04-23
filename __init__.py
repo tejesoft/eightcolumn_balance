@@ -1,4 +1,4 @@
 # -*- coding: utf-8 -*-
 
-import report
-import wizard
+from . import report
+from . import wizard

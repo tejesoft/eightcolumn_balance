@@ -1,2 +1,2 @@
 # -*- coding: utf-8 -*-
-import report_eightcolumns
+from . import report_eightcolumns
