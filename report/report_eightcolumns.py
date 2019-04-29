@@ -111,13 +111,13 @@ class ReportEightColumns(models.AbstractModel):
                         if account_type in ['Assets', 'Liability']:
                             res['Assets'] = abs(res['balance'])
                         elif account_type in ['Income', 'Expense']:
-                            res['Income'] = abs(res['balance'])
+                            res['Expense'] = abs(res['balance'])
                     else:
                         res['balance_neg'] = abs(res['balance'])
                         if account_type in ['Assets', 'Liability']:
                             res['Liability'] = abs(res['balance'])
                         elif account_type in ['Income','Expense']:
-                            res['Expense'] = abs(res['balance'])
+                            res['Income'] = abs(res['balance'])
                 else:
                     res[account_type] = res['balance']  # 'Liability', 'Assets', 'Income', 'Expense'
                     if res['balance'] > 0 :
