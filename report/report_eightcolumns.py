@@ -36,7 +36,7 @@ class ReportEightColumns(models.AbstractModel):
         return balance_total
 
 
-    def _get_accounts(self, accounts, display_account):
+    def _get_accounts(self, accounts, display_account, enable_negative_values):
         """ compute the balance, debit and credit for the provided accounts
             :Arguments:
                 `accounts`: list of accounts record,
@@ -94,20 +94,36 @@ class ReportEightColumns(models.AbstractModel):
                 res['balance'] = account_result[account.id].get('balance')
 
 
-            #try:
+            # try:
 
                 account_type = str(account_types.get(account.id).get('type'))
 
-            #except AttributeError:
-             #   raise except_orm('Debe configurar los tipos de cuentas y configurar los informes financieros')
+            #  except AttributeError:
+            #  raise except_orm('Debe configurar los tipos de cuentas y configurar los informes financieros')
 
+                #  enable negative values
 
-
-                res[account_type] = res['balance']  #'Liability', 'Assets', 'Income', 'Expense'
-                if res['balance'] > 0 :
-                    res['balance_pos'] = res['balance']
+                if enable_negative_values:
+                    # res[account_type] = res['balance']  #'Liability', 'Assets', 'Income', 'Expense'
+                    if res['balance'] > 0 :
+                        res['balance_pos'] = res['balance']
+                        # verify that account_type belong to (assets/liability)
+                        if account_type in ['Assets', 'Liability']:
+                            res['Assets'] = abs(res['balance'])
+                        elif account_type in ['Income', 'Expense']:
+                            res['Expense'] = abs(res['balance'])
+                    else:
+                        res['balance_neg'] = abs(res['balance'])
+                        if account_type in ['Assets', 'Liability']:
+                            res['Liability'] = abs(res['balance'])
+                        elif account_type in ['Income','Expense']:
+                            res['Income'] = abs(res['balance'])
                 else:
-                    res['balance_neg'] = abs(res['balance'])
+                    res[account_type] = res['balance']  # 'Liability', 'Assets', 'Income', 'Expense'
+                    if res['balance'] > 0 :
+                        res['balance_pos'] = abs(res['balance'])
+                    else:
+                        res['balance_neg'] = abs(res['balance'])
             if display_account == 'all':
                 account_res.append(res)
             if display_account in ['movement', 'not_zero'] and not currency.is_zero(res['balance']):
@@ -120,8 +136,11 @@ class ReportEightColumns(models.AbstractModel):
         self.model = self.env.context.get('active_model')
         docs = self.env[self.model].browse(self.env.context.get('active_ids', []))
         display_account = data['form'].get('display_account')
+        enable_negative_values = data['form'].get('enable_negative_values')
         accounts = docs if self.model == 'account.account' else self.env['account.account'].search([])
-        account_res = self.with_context(data['form'].get('used_context'))._get_accounts(accounts, display_account)
+        account_res = self.with_context(data['form'].get('used_context'))._get_accounts(accounts,
+                                                                                        display_account,
+                                                                                        enable_negative_values)
 
         docargs = {
             'doc_ids': self.ids,

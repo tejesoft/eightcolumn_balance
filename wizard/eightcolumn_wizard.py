@@ -17,6 +17,8 @@ class EightColumnWizard(models.TransientModel):
     display_account = fields.Selection([('all', 'Todas'), ('movement', 'Con movimientos'),
                                         ('not_zero', 'Con balance distinto de cero'), ],
                                        string='Mostrar cuentas', required=False, default='movement')
+    enable_negative_values = fields.Boolean('inhabilitar cifras negativas', default=False,
+                                            help="esta opcion no mostrará datos negativos(-)")
 
     def _build_contexts(self, data):
         result = {}
@@ -37,7 +39,7 @@ class EightColumnWizard(models.TransientModel):
         data = {}
         data['ids'] = self.env.context.get('active_ids', [])
         data['model'] = self.env.context.get('active_model', 'ir.ui.menu')
-        data['form'] = self.read(['date_from', 'date_to', 'target_move'])[0]
+        data['form'] = self.read(['date_from', 'date_to', 'target_move', 'enable_negative_values'])[0]
         used_context = self._build_contexts(data)
         data['form']['used_context'] = dict(used_context, lang=self.env.context.get('lang', 'en_US'))
         return self._print_report(data)
