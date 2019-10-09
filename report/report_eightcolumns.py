@@ -35,8 +35,220 @@ class ReportEightColumns(models.AbstractModel):
 
         return balance_total
 
+    def _diferencia_pasivo_activo(self, account_res):
+        resultado_pasivo_activo = 0.0
+        key_Activo = 'Assets'
+        key_Pasivo = 'Liability'
+        key_AR =''
+        valor_Activo = 0.0
+        valor_Pasivo = 0.0
 
-    def _get_accounts(self, accounts, display_account):
+        for account_row in account_res:
+            for key, value in account_row.items():
+                key_AR = key;
+                if key_Pasivo == key_AR:
+                    valor_Pasivo = valor_Pasivo + value;
+
+                if key_Activo == key_AR:
+                    valor_Activo =  valor_Activo + value;
+
+        if valor_Pasivo > valor_Activo:
+            resultado_pasivo_activo = valor_Pasivo - abs(valor_Activo);
+        else:
+            resultado_pasivo_activo = 0.0
+
+        return resultado_pasivo_activo
+
+    def _diferencia_activo_pasivo(self, account_res):
+        resultado_pasivo_activo = 0.0
+        key_Activo = 'Assets'
+        key_Pasivo = 'Liability'
+        key_AR = ''
+        valor_Activo = 0.0
+        valor_Pasivo = 0.0
+
+        for account_row in account_res:
+            for key, value in account_row.items():
+                key_AR = key;
+                if key_Pasivo == key_AR:
+                    valor_Pasivo = valor_Pasivo + value;
+
+                if key_Activo == key_AR:
+                    valor_Activo = valor_Activo + value;
+
+        if valor_Activo > valor_Pasivo:
+            resultado_activo_pasivo = valor_Activo - abs(valor_Pasivo);
+        else:
+            resultado_activo_pasivo = 0.0
+
+        return resultado_activo_pasivo
+
+    def _diferencia_ingresos_gastos(self, account_res):
+        resultado_ingresos_gastos = 0.0
+        key_Ingresos = 'Income'
+        key_Gastos = 'Expense'
+        key_AR = ''
+        valor_Ingresos = 0.0
+        valor_Gastos = 0.0
+
+        for account_row in account_res:
+            for key, value in account_row.items():
+                key_AR = key;
+                if key_Ingresos == key_AR:
+                    valor_Ingresos = valor_Ingresos + value;
+
+                if key_Gastos == key_AR:
+                    valor_Gastos = valor_Gastos + value;
+
+        if valor_Ingresos > valor_Gastos:
+            resultado_ingresos_gastos = valor_Ingresos - abs(valor_Gastos);
+        else:
+            resultado_ingresos_gastos = 0.0
+
+        return resultado_ingresos_gastos
+
+    def _diferencia_gastos_ingresos(self, account_res):
+        resultado_gastos_ingresos = 0.0
+        key_Ingresos = 'Income'
+        key_Gastos = 'Expense'
+        key_AR = ''
+        valor_Ingresos = 0.0
+        valor_Gastos = 0.0
+
+        for account_row in account_res:
+            for key, value in account_row.items():
+                key_AR = key;
+                if key_Ingresos == key_AR:
+                    valor_Ingresos = valor_Ingresos + value;
+
+                if key_Gastos == key_AR:
+                    valor_Gastos = valor_Gastos + value;
+
+        if valor_Gastos > valor_Ingresos:
+            resultado_gastos_ingresos = valor_Gastos - abs(valor_Ingresos);
+        else:
+            resultado_gastos_ingresos = 0.0
+
+        return resultado_gastos_ingresos
+
+    def _Total_pasivo(self, account_res):
+        resultado_pasivo_activo = 0.0
+        key_Activo = 'Assets'
+        key_Pasivo = 'Liability'
+        key_AR =''
+        valor_Activo = 0.0
+        valor_Pasivo = 0.0
+
+        for account_row in account_res:
+            for key, value in account_row.items():
+                key_AR = key;
+                if key_Pasivo == key_AR:
+                    valor_Pasivo = valor_Pasivo + value;
+
+                if key_Activo == key_AR:
+                    valor_Activo =  valor_Activo + value;
+
+        if valor_Pasivo > valor_Activo:
+            resultado_pasivo_activo = valor_Pasivo - abs(valor_Activo);
+        else:
+            resultado_pasivo_activo = 0.0
+
+        if valor_Pasivo == resultado_pasivo_activo:
+            resultado_pasivo_activo = resultado_pasivo_activo;
+        else:
+            resultado_pasivo_activo = valor_Pasivo + resultado_pasivo_activo;
+
+        return resultado_pasivo_activo
+
+    def _Total_activo(self, account_res):
+        resultado_pasivo_activo = 0.0
+        key_Activo = 'Assets'
+        key_Pasivo = 'Liability'
+        key_AR = ''
+        valor_Activo = 0.0
+        valor_Pasivo = 0.0
+
+        for account_row in account_res:
+            for key, value in account_row.items():
+                key_AR = key;
+                if key_Pasivo == key_AR:
+                    valor_Pasivo = valor_Pasivo + value;
+
+                if key_Activo == key_AR:
+                    valor_Activo = valor_Activo + value;
+
+        if valor_Activo > valor_Pasivo:
+            resultado_activo_pasivo = valor_Activo - abs(valor_Pasivo);
+        else:
+            resultado_activo_pasivo = 0.0
+
+        if valor_Activo == resultado_pasivo_activo:
+            resultado_activo_pasivo = resultado_activo_pasivo;
+        else:
+            resultado_activo_pasivo = valor_Activo + resultado_activo_pasivo;
+
+        return resultado_activo_pasivo
+
+    def _Total_ingresos(self, account_res):
+        resultado_ingresos_gastos = 0.0
+        key_Ingresos = 'Income'
+        key_Gastos = 'Expense'
+        key_AR = ''
+        valor_Ingresos = 0.0
+        valor_Gastos = 0.0
+
+        for account_row in account_res:
+            for key, value in account_row.items():
+                key_AR = key;
+                if key_Ingresos == key_AR:
+                    valor_Ingresos = valor_Ingresos + value;
+
+                if key_Gastos == key_AR:
+                    valor_Gastos = valor_Gastos + value;
+
+        if valor_Ingresos > valor_Gastos:
+            resultado_ingresos_gastos = valor_Ingresos - abs(valor_Gastos);
+        else:
+            resultado_ingresos_gastos = 0.0
+
+        if valor_Ingresos == resultado_ingresos_gastos:
+            resultado_ingresos_gastos = resultado_ingresos_gastos;
+        else:
+            resultado_ingresos_gastos = valor_Ingresos + resultado_ingresos_gastos;
+
+        return resultado_ingresos_gastos
+
+    def _Total_gastos(self, account_res):
+        resultado_gastos_ingresos = 0.0
+        key_Ingresos = 'Income'
+        key_Gastos = 'Expense'
+        key_AR = ''
+        valor_Ingresos = 0.0
+        valor_Gastos = 0.0
+
+        for account_row in account_res:
+            for key, value in account_row.items():
+                key_AR = key;
+                if key_Ingresos == key_AR:
+                    valor_Ingresos = valor_Ingresos + value;
+
+                if key_Gastos == key_AR:
+                    valor_Gastos = valor_Gastos + value;
+
+        if valor_Gastos > valor_Ingresos:
+            resultado_gastos_ingresos = valor_Gastos - abs(valor_Ingresos);
+        else:
+            resultado_gastos_ingresos = 0.0
+
+        if valor_Gastos == resultado_gastos_ingresos:
+            resultado_gastos_ingresos = resultado_gastos_ingresos;
+        else:
+            resultado_gastos_ingresos = valor_Gastos + resultado_gastos_ingresos;
+
+        return resultado_gastos_ingresos
+
+
+    def _get_accounts(self, accounts, display_account, enable_negative_values):
         """ compute the balance, debit and credit for the provided accounts
             :Arguments:
                 `accounts`: list of accounts record,
@@ -94,20 +306,36 @@ class ReportEightColumns(models.AbstractModel):
                 res['balance'] = account_result[account.id].get('balance')
 
 
-                try:
+                # try:
+                #
+                account_type = str(account_types.get(account.id).get('type'))
+                #
+                # except AttributeError:
+                #     raise Warning('Debe configurar los tipos de cuentas y configurar los informes financieros')
 
-                    account_type = str(account_types.get(account.id).get('type'))
+                #  enable negative values
 
-                except AttributeError:
-                    raise Warning('Debe configurar los tipos de cuentas y configurar los informes financieros')
-
-
-
-                res[account_type] = res['balance']  #'Liability', 'Assets', 'Income', 'Expense'
-                if res['balance'] > 0 :
-                    res['balance_pos'] = res['balance']
+                if enable_negative_values:
+                    # res[account_type] = res['balance']  #'Liability', 'Assets', 'Income', 'Expense'
+                    if res['balance'] > 0:
+                        res['balance_pos'] = res['balance']
+                        # verify that account_type belong to (assets/liability)
+                        if account_type in ['Assets', 'Liability']:
+                            res['Assets'] = abs(res['balance'])
+                        elif account_type in ['Income', 'Expense']:
+                            res['Expense'] = abs(res['balance'])
+                    else:
+                        res['balance_neg'] = abs(res['balance'])
+                        if account_type in ['Assets', 'Liability']:
+                            res['Liability'] = abs(res['balance'])
+                        elif account_type in ['Income', 'Expense']:
+                            res['Income'] = abs(res['balance'])
                 else:
-                    res['balance_neg'] = abs(res['balance'])
+                    res[account_type] = res['balance']  # 'Liability', 'Assets', 'Income', 'Expense'
+                    if res['balance'] > 0:
+                        res['balance_pos'] = abs(res['balance'])
+                    else:
+                        res['balance_neg'] = abs(res['balance'])
             if display_account == 'all':
                 account_res.append(res)
             if display_account in ['movement', 'not_zero'] and not currency.is_zero(res['balance']):
@@ -120,8 +348,11 @@ class ReportEightColumns(models.AbstractModel):
         self.model = self.env.context.get('active_model')
         docs = self.env[self.model].browse(self.env.context.get('active_ids', []))
         display_account = data['form'].get('display_account')
+        enable_negative_values = data['form'].get('enable_negative_values')
         accounts = docs if self.model == 'account.account' else self.env['account.account'].search([])
-        account_res = self.with_context(data['form'].get('used_context'))._get_accounts(accounts, display_account)
+        account_res = self.with_context(data['form'].get('used_context'))._get_accounts(accounts,
+                                                                                        display_account,
+                                                                                        enable_negative_values)
 
         docargs = {
             'doc_ids': self.ids,
@@ -130,7 +361,15 @@ class ReportEightColumns(models.AbstractModel):
             'docs': docs,
             'time': time,
             'Accounts': account_res,
-            'Totals': self._compute_total(account_res)
+            'Totals': self._compute_total(account_res),
+            'Dif_AP': self._diferencia_activo_pasivo(account_res),
+            'Dif_PA': self._diferencia_pasivo_activo(account_res),
+            'Dif_IG': self._diferencia_ingresos_gastos(account_res),
+            'Dif_GI': self._diferencia_gastos_ingresos(account_res),
+            'Total_A': self._Total_activo(account_res),
+            'Total_P': self._Total_pasivo(account_res),
+            'Total_I': self._Total_ingresos(account_res),
+            'Total_G': self._Total_gastos(account_res)
         }
         return docargs
-        #return self.env['report'].render('eightcolumn_balance.report_eightcolumns', docargs)
+        # return self.env['report'].render('eightcolumn_balance.report_eightcolumns', docargs)
