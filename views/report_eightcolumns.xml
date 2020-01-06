@@ -137,16 +137,16 @@
 <!--                                <span t-att-style="style" t-esc="Totals['balance_neg']" t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}"/>-->
                             </th>
                             <th class="text-right">
-                                <span t-att-style="style" t-esc="Dif_PA" t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}"/>
+                                <span t-att-style="style" t-esc="Result['Assets']" t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}"/>
                             </th>
                             <th class="text-right">
-                                <span t-att-style="style" t-esc="Dif_AP" t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}"/>
+                                <span t-att-style="style" t-esc="Result['Liability']" t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}"/>
                             </th>
                             <th class="text-right">
-                                <span t-att-style="style" t-esc="Dif_IG" t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}"/>
+                                <span t-att-style="style" t-esc="Result['Expense']" t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}"/>
                             </th>
                             <th class="text-right">
-                                <span t-att-style="style" t-esc="Dif_GI" t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}"/>
+                                <span t-att-style="style" t-esc="Result['Income']" t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}"/>
                             </th>
                         </tr>
                         <tr t-if="len(Totals) &gt; 0">
@@ -166,16 +166,16 @@
                                 <span t-att-style="style" t-esc="Totals['balance_neg']" t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}"/>
                             </th>
                             <th class="text-right">
-                                <span t-att-style="style" t-esc="Total_P" t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}"/>
+                                <span t-att-style="style" t-esc="Totals['Assets'] - Result['Assets']" t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}"/>
                             </th>
                             <th class="text-right">
-                                <span t-att-style="style" t-esc="Total_A" t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}"/>
+                                <span t-att-style="style" t-esc="Totals['Liability'] - Result['Liability']" t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}"/>
                             </th>
                             <th class="text-right">
-                                <span t-att-style="style" t-esc="Total_I" t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}"/>
+                                <span t-att-style="style" t-esc="Totals['Expense'] - Result['Expense']" t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}"/>
                             </th>
                             <th class="text-right">
-                                <span t-att-style="style" t-esc="Total_G" t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}"/>
+                                <span t-att-style="style" t-esc="Totals['Income'] - Result['Income']" t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}"/>
                             </th>
                         </tr>
                     </tbody>

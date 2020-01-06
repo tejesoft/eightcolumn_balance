@@ -26,16 +26,29 @@ class ReportEightColumns(models.AbstractModel):
 
         return account_result
 
-    def _compute_total(self, account_res):
+    def _compute_total(self, account_res,enable_negative_values):
         balance_total = {}
         for account_row in account_res:
             for key in account_row.keys():
                 if type(account_row[key]) is float:
                     balance_total[key] = balance_total.get(key, 0) + account_row[key]
+        if enable_negative_values:
+            result ={
+                'Assets': max(balance_total.get('Assets',0) - balance_total.get('Liability',0),0),
+                'Liability': max(balance_total.get('Liability',0) - balance_total.get('Assets',0),0),
+                'Expense': max(balance_total.get('Expense',0) - balance_total.get('Income',0),0),
+                'Income': max(balance_total.get('Income',0) - balance_total.get('Expense',0),0)
+            }
+        else:
+            result = {
+                'Assets': max(balance_total.get('Assets', 0) + balance_total.get('Liability', 0), 0),
+                'Liability': min(balance_total.get('Liability', 0) + balance_total.get('Assets', 0), 0),
+                'Expense': max(balance_total.get('Expense', 0) + balance_total.get('Income', 0), 0),
+                'Income': min(balance_total.get('Income', 0) + balance_total.get('Expense', 0), 0)
+            }
+        return balance_total, result
 
-        return balance_total
-
-    def _diferencia_pasivo_activo(self, account_res):
+    """def _diferencia_pasivo_activo(self, account_res):
         resultado_pasivo_activo = 0.0
         key_Activo = 'Assets'
         key_Pasivo = 'Liability'
@@ -245,7 +258,7 @@ class ReportEightColumns(models.AbstractModel):
         else:
             resultado_gastos_ingresos = valor_Gastos + resultado_gastos_ingresos;
 
-        return resultado_gastos_ingresos
+        return resultado_gastos_ingresos"""
 
 
     def _get_accounts(self, accounts, display_account, enable_negative_values):
@@ -353,7 +366,7 @@ class ReportEightColumns(models.AbstractModel):
         account_res = self.with_context(data['form'].get('used_context'))._get_accounts(accounts,
                                                                                         display_account,
                                                                                         enable_negative_values)
-
+        Totals, Result = self._compute_total(account_res,enable_negative_values)
         docargs = {
             'doc_ids': self.ids,
             'doc_model': self.model,
@@ -361,15 +374,8 @@ class ReportEightColumns(models.AbstractModel):
             'docs': docs,
             'time': time,
             'Accounts': account_res,
-            'Totals': self._compute_total(account_res),
-            'Dif_AP': self._diferencia_activo_pasivo(account_res),
-            'Dif_PA': self._diferencia_pasivo_activo(account_res),
-            'Dif_IG': self._diferencia_ingresos_gastos(account_res),
-            'Dif_GI': self._diferencia_gastos_ingresos(account_res),
-            'Total_A': self._Total_activo(account_res),
-            'Total_P': self._Total_pasivo(account_res),
-            'Total_I': self._Total_ingresos(account_res),
-            'Total_G': self._Total_gastos(account_res)
+            'Totals': Totals,
+            'Result': Result
         }
         return docargs
         # return self.env['report'].render('eightcolumn_balance.report_eightcolumns', docargs)
