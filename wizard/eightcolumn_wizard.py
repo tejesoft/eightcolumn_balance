@@ -17,7 +17,7 @@ class EightColumnWizard(models.TransientModel):
     display_account = fields.Selection([('all', 'Todas'), ('movement', 'Con movimientos'),
                                         ('not_zero', 'Con balance distinto de cero'), ],
                                        string='Mostrar cuentas', required=False, default='movement')
-    enable_negative_values = fields.Boolean('inhabilitar cifras negativas', default=False,
+    enable_negative_values = fields.Boolean('inhabilitar cifras negativas', default=True,
                                             help="esta opcion no mostrará datos negativos(-)")
 
     def _build_contexts(self, data):
